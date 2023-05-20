@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
+
+import os
 import openai
 openai.api_key = os.environ["openai_api"]
 
@@ -10,10 +12,6 @@ import html
 import re
 from urllib.parse import urlparse
 from uuid import uuid4
-from scipy.spatial import distance
-
-import os
-import openai
 from scipy.spatial import distance
 import pandas as pd
 from langchain.text_splitter import RecursiveCharacterTextSplitter
