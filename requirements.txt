@@ -1,0 +1,12 @@
+Flask==2.0.2
+gunicorn
+openai
+requests
+googletrans==4.0.0-rc1
+beautifulsoup4
+html5lib
+scipy
+pandas
+langchain
+tiktoken
+validators
