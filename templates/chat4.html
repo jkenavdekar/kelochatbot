@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelo_chat</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style2.css')}}"/>
     <style>
@@ -12,7 +13,36 @@
     <script>
         $(document).ready(function() {
             $('form').submit(function(event) {
+
+                event.preventDefault();
+
+                var message = $('#name').val();
+                console.log(message);
+
                 $('#loadingIndicator').show();
+
+                $.ajax({
+                    url: '/',
+                    type: 'POST',
+                    data: JSON.stringify({ message: message }),
+                    contentType: 'application/json',
+                    success: function(response) {
+                        $('#loadingIndicator').hide();
+                        if(response.answer == '/goo'){
+                            window.location.href = response.answer;
+                        }
+                        else{
+                            $('#response').text('Enter a valid URL');
+                        }
+                        
+
+                    },
+                    error: function() {
+                        $('#loadingIndicator').hide();
+                        $('#response').text('An error occurred.');
+                    }
+                });
+                
             });
         });
     </script>
@@ -20,11 +50,11 @@
 <body>
     <div class="kelo">
             <h1>KELO</h1>
-            <form action="/" method="POST">
-                <input type="text" id="name" name="name" placeholder="Enter Your website URL" required><br><br>
+            <form>
+                <input type="url" id="name" name="name" placeholder="Enter Your website URL" required><br><br>
                 <input type="submit" value="Submit" class="btn btn-primary btn-large"><br><br>
             </form>
-            <div id="response">{{response}}</div>
+            <div id="response"></div>
             <div id="loadingIndicator">Indexing...</div>   
     </div>
     

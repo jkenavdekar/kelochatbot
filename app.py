@@ -84,7 +84,7 @@ app = Flask(__name__)
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        url = request.form["name"]
+        url = request.json["message"]
         validation = validators.url(url)
 
         if validation:
@@ -182,11 +182,11 @@ def index():
             
             print(len(vectors), len(all_texts))
 
-            return redirect('/goo')
+            return jsonify({'answer': "/goo"})
         else:
-            return render_template('chat4.html', response='Enter a valid URL')
+            return jsonify({'answer': "/"})
     
-    return render_template('chat4.html', response='')
+    return render_template('chat4.html')
 
 @app.route("/goo")
 def goo():
